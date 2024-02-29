@@ -8,24 +8,21 @@ export var jump_speed: int = -400
 
 var velocity: Vector2 = Vector2()
 
-
 func get_input():
 	velocity.x = 0
-	if is_on_floor() and Input.is_action_just_pressed("jump"):
+	if is_on_floor() and Input.is_action_just_pressed("ui_up"):
 		velocity.y = jump_speed
-	if Input.is_action_pressed("right"):
+	if Input.is_action_pressed("ui_right"):
 		velocity.x += speed
-	if Input.is_action_pressed("left"):
+	if Input.is_action_pressed("ui_left"):
 		velocity.x -= speed
 
-
-func _physics_process(_delta):
+func _physics_process(delta):
 	velocity.y += delta * GRAVITY
 	get_input()
 	velocity = move_and_slide(velocity, UP)
 
-
-func _process(_delta):
+func _process(delta):
 	if velocity.y != 0:
 		$Animator.play("Jump")
 	elif velocity.x != 0:
